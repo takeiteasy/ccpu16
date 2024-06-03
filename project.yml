@@ -1,0 +1,34 @@
+name: ccpu
+
+options:
+  bundleIdPrefix: io.github.takeiteasy
+  createIntermediateGroups: true
+  deploymentTarget:
+    macOS: "14.0"
+
+settings:
+  GCC_C_LANGUAGE_STANDARD: c11
+  CLANG_WARN_DOCUMENTATION_COMMENTS: false
+
+targets:
+  ccpu:
+    type: library.dynamic
+    platform: macOS
+    sources:
+        - path: src/
+          includes:
+            - "*pu.[ch]"
+            - "*assemble*.c"
+  test:
+    type: tool
+    platform: macOS
+    sources:
+      - path: tests/test.c
+      - path: project.yml
+        type: folder
+      - path: README.md
+        type: folder
+      - path: Makefile
+        type: folder
+    dependencies:
+      - target: ccpu
